@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "807038483933",
+    "project_id": "financly-937d6",
+    "storage_bucket": "financly-937d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807038483933:android:2d2b51454032f02a344a34",
+        "android_client_info": {
+          "package_name": "id.ac.pnm.financly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807038483933-dsedtko4234n51c0vhjolmhibfbbcs67.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.pnm.financly",
+            "certificate_hash": "2b55c7d27cd32c2bc683ca0e378927612601f292"
+          }
+        },
+        {
+          "client_id": "807038483933-og6lecq4ant0cjir4i812gh2llvp86hu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX0ApmgFM3mlM4RIBSS1D6kknn7SAH_Ng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807038483933-og6lecq4ant0cjir4i812gh2llvp86hu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

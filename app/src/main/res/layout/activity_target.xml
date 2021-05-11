@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ijo"
+    android:id="@+id/layoutTarget"
+    tools:context=".TargetActivity">
+
+    <TextView
+        android:id="@+id/txtTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/fredoka_one"
+        android:gravity="center"
+        android:text="Target"
+        android:textColor="#FFFFFF"
+        android:textSize="15pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtNominal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Harga"
+
+        android:textColor="#FFFFFF"
+        android:textSize="10pt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTarget" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/bg_tambah"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <LinearLayout
+            android:id="@+id/btnTarget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:stretchColumns="1">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_column="1"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="3dp"
+                        android:text="Sisa Target"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/txtSisa"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="Rp."
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_column="1"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="3dp"
+                        android:text="Jangka Waktu"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/txtDurasi"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="- Bulan"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_column="1"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="3dp"
+                        android:text="Tanggal"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/txtTanggal"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="-"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_column="1"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="3dp"
+                        android:text="Tabungan Perbulan"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/txtPerBulan"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="Rp."
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_column="1"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="3dp"
+                        android:text="Tabungan Perhari"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/txtPerHari"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="Rp."
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_column="1"
+                        android:fontFamily="@font/fredoka_one"
+                        android:padding="3dp"
+                        android:text="Deskripsi"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/txtDeskripsi"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="-"
+                        android:textColor="@color/ijo"
+                        android:textSize="8pt" />
+                </TableRow>
+
+            </TableLayout>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:max="100"
+                android:progressDrawable="@drawable/progressbar_style1" />
+
+            <TextView
+                android:id="@+id/persentase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:gravity="center"
+                android:text="Target Tercapai 0%"
+                android:textColor="@color/ijo"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/btnHapus"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_hapus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/hitam"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="Riwayat Tabungan"
+                    android:textColor="@color/ijo"
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:id="@+id/txtRiwayat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:padding="3dp"
+                    android:text="Rp. "
+                    android:textColor="@color/ijo"
+                    android:textSize="8pt" />
+
+
+            </LinearLayout>
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="left"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:gravity="left">-->
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txtDurasi"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Jangka Bulan"/>-->
+
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txtTanggal"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Tanggal"/>-->
+
+
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txtDeskripsi"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Deskripsi"/>-->
+
+            <!--            </LinearLayout>-->
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
