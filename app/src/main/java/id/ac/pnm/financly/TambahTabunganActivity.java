@@ -103,10 +103,10 @@ public class TambahTabunganActivity extends AppCompatActivity implements Adapter
         datePickerFragment.setOnDateClickListener(new DatePickerFragment.onDateClickListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String tahun = "" + datePicker.getYear();
-                String bulan = "" + (datePicker.getMonth() + 1);
-                String hari = "" + datePicker.getDayOfMonth();
-                String text = tahun + " - " + bulan + " - " + hari;
+                String tahun    = "" + datePicker.getYear();
+                String bulan    = "" + (datePicker.getMonth() + 1);
+                String hari     = "" + datePicker.getDayOfMonth();
+                String text     = tahun + " - " + bulan + " - " + hari;
                 edtTanggal.setText(text);
             }
         });
