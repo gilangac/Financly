@@ -59,15 +59,15 @@ public class TambahTabunganActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_tabungan);
 
-        spinTarget      = findViewById(R.id.spinTarget);
-        edtNominal      = findViewById(R.id.edtNominal);
-        edtDeskripsi    = findViewById(R.id.edtDeskripsi);
-        edtTanggal      = findViewById(R.id.edtTanggal);
-        btnSimpan       = findViewById(R.id.btnSimpan);
-        btnBatal        = findViewById(R.id.btnBatal);
-        firestore       = FirebaseFirestore.getInstance();
-        firebaseAuth    = FirebaseAuth.getInstance();
-        progressDialog  = new SpotsDialog(this, R.style.Custom);
+        spinTarget = findViewById(R.id.spinTarget);
+        edtNominal = findViewById(R.id.edtNominal);
+        edtDeskripsi = findViewById(R.id.edtDeskripsi);
+        edtTanggal = findViewById(R.id.edtTanggal);
+        btnSimpan = findViewById(R.id.btnSimpan);
+        btnBatal = findViewById(R.id.btnBatal);
+        firestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new SpotsDialog(this, R.style.Custom);
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         userID = firebaseUser.getUid();
@@ -103,28 +103,28 @@ public class TambahTabunganActivity extends AppCompatActivity implements Adapter
         datePickerFragment.setOnDateClickListener(new DatePickerFragment.onDateClickListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String tahun = ""+datePicker.getYear();
-                String bulan = ""+(datePicker.getMonth()+1);
-                String hari = ""+datePicker.getDayOfMonth();
-                String text = tahun+" - "+bulan+" - "+hari;
+                String tahun = "" + datePicker.getYear();
+                String bulan = "" + (datePicker.getMonth() + 1);
+                String hari = "" + datePicker.getDayOfMonth();
+                String text = tahun + " - " + bulan + " - " + hari;
                 edtTanggal.setText(text);
             }
         });
     }
 
-    public void showDataSpinner(){
+    public void showDataSpinner() {
         firestore.collection("users").document(userID).collection("dataTarget")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         arrayList.clear();
-                        for (DocumentSnapshot doc:task.getResult()){
-                            if(doc.exists()){
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            if (doc.exists()) {
                                 arrayList.add(doc.getString("target"));
                             }
                         }
-                        ArrayAdapter<String>arrayAdapter = new ArrayAdapter<>(TambahTabunganActivity.this,R.layout.style_spinner,arrayList);
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(TambahTabunganActivity.this, R.layout.style_spinner, arrayList);
                         spinTarget.setAdapter(arrayAdapter);
                         spinTarget.setOnItemSelectedListener(TambahTabunganActivity.this);
                     }
@@ -146,36 +146,42 @@ public class TambahTabunganActivity extends AppCompatActivity implements Adapter
         tanggal     = edtTanggal.getText().toString().trim();
         id          = UUID.randomUUID().toString();
 
-        userID = firebaseAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = firestore.collection("users").document(userID).collection("dataTabungan").document(id);
-        Map<String,Object> user = new HashMap<>();
-        user.put("id", id);
-        user.put("target", target);
-        user.put("cicilan", cicilan);
-        user.put("deskripsi", deskripsi);
-        user.put("tanggal", tanggal);
-        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                progressDialog.dismiss();
-                Log.d(TAG, "onSuccess: Target ");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Log.d(TAG, "onFailure: " + e.toString());
-            }
-        });
-        progressDialog.dismiss();
+        if (target.isEmpty() || cicilan.isEmpty() || deskripsi.isEmpty() || tanggal.isEmpty()) {
+            progressDialog.dismiss();
+            Toast.makeText(TambahTabunganActivity.this, "Lengkapi semua form", Toast.LENGTH_LONG).show();
+        } else {
 
-        Toast.makeText(TambahTabunganActivity.this, "Tabungan Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(TambahTabunganActivity.this,LoginActivity.class));
+            userID = firebaseAuth.getCurrentUser().getUid();
+            DocumentReference documentReference = firestore.collection("users").document(userID).collection("dataTabungan").document(id);
+            Map<String, Object> user = new HashMap<>();
+            user.put("id", id);
+            user.put("target", target);
+            user.put("cicilan", cicilan);
+            user.put("deskripsi", deskripsi);
+            user.put("tanggal", tanggal);
+            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
+                    Log.d(TAG, "onSuccess: Target ");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Log.d(TAG, "onFailure: " + e.toString());
+                }
+            });
+            progressDialog.dismiss();
+
+            Toast.makeText(TambahTabunganActivity.this, "Tabungan Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(TambahTabunganActivity.this, LoginActivity.class));
+        }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(this,"Anda Memlilih ",Toast.LENGTH_LONG);
+        Toast.makeText(this, "Anda Memlilih ", Toast.LENGTH_LONG);
     }
 
     @Override

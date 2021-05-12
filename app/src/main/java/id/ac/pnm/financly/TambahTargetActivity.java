@@ -28,7 +28,7 @@ import java.util.UUID;
 import dmax.dialog.SpotsDialog;
 
 public class TambahTargetActivity extends AppCompatActivity {
-    TextView edtTarget,edtNominal, edtDurasi, edtDeskripsi,edtTanggal,btnBatal;
+    TextView edtTarget, edtNominal, edtDurasi, edtDeskripsi, edtTanggal, btnBatal;
     Button btnSimpan;
     FirebaseAuth auth;
     FirebaseFirestore fStore;
@@ -41,17 +41,17 @@ public class TambahTargetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_target);
 
-        edtTarget    = findViewById(R.id.edtTarget);
-        edtNominal   = findViewById(R.id.edtNominal);
-        edtDurasi    = findViewById(R.id.edtDurasi);
+        edtTarget = findViewById(R.id.edtTarget);
+        edtNominal = findViewById(R.id.edtNominal);
+        edtDurasi = findViewById(R.id.edtDurasi);
         edtDeskripsi = findViewById(R.id.edtDeskripsi);
-        edtTanggal   = findViewById(R.id.edtTanggal);
-        btnSimpan    = findViewById(R.id.btnSimpan);
-        btnBatal     = findViewById(R.id.btnBatal);
-        auth         = FirebaseAuth.getInstance();
-        fStore       = FirebaseFirestore.getInstance();
-        progressDialog  = new SpotsDialog(this, R.style.Custom);
-        
+        edtTanggal = findViewById(R.id.edtTanggal);
+        btnSimpan = findViewById(R.id.btnSimpan);
+        btnBatal = findViewById(R.id.btnBatal);
+        auth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        progressDialog = new SpotsDialog(this, R.style.Custom);
+
         edtTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,10 +82,10 @@ public class TambahTargetActivity extends AppCompatActivity {
         datePickerFragment.setOnDateClickListener(new DatePickerFragment.onDateClickListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String tahun = ""+datePicker.getYear();
-                String bulan = ""+(datePicker.getMonth()+1);
-                String hari = ""+datePicker.getDayOfMonth();
-                String text = tahun+" - "+bulan+" - "+hari;
+                String tahun = "" + datePicker.getYear();
+                String bulan = "" + (datePicker.getMonth() + 1);
+                String hari = "" + datePicker.getDayOfMonth();
+                String text = tahun + " - " + bulan + " - " + hari;
                 edtTanggal.setText(text);
             }
         });
@@ -101,31 +101,36 @@ public class TambahTargetActivity extends AppCompatActivity {
         String tanggal = edtTanggal.getText().toString().trim();
         String id = UUID.randomUUID().toString();
 
-        userID = auth.getCurrentUser().getUid();
-        DocumentReference documentReference = fStore.collection("users").document(userID).collection("dataTarget").document(id);
-        Map<String,Object> user = new HashMap<>();
-        user.put("id", id);
-        user.put("target", target);
-        user.put("nominal", nominal);
-        user.put("durasi", durasi);
-        user.put("deskripsi", deskripsi);
-        user.put("tanggal", tanggal);
-        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                progressDialog.dismiss();
-                Log.d(TAG, "onSuccess: Target ");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Log.d(TAG, "onFailure: " + e.toString());
-            }
-        });
-        progressDialog.dismiss();
+        if (target.isEmpty() || nominal.isEmpty() || durasi.isEmpty() || deskripsi.isEmpty() || tanggal.isEmpty() || tanggal.isEmpty()) {
+            progressDialog.dismiss();
+            Toast.makeText(TambahTargetActivity.this, "Lengkapi semua form", Toast.LENGTH_LONG).show();
+        } else {
+            userID = auth.getCurrentUser().getUid();
+            DocumentReference documentReference = fStore.collection("users").document(userID).collection("dataTarget").document(id);
+            Map<String, Object> user = new HashMap<>();
+            user.put("id", id);
+            user.put("target", target);
+            user.put("nominal", nominal);
+            user.put("durasi", durasi);
+            user.put("deskripsi", deskripsi);
+            user.put("tanggal", tanggal);
+            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
+                    Log.d(TAG, "onSuccess: Target ");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Log.d(TAG, "onFailure: " + e.toString());
+                }
+            });
+            progressDialog.dismiss();
 
-        Toast.makeText(TambahTargetActivity.this, "Target Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(TambahTargetActivity.this,LoginActivity.class));
+            Toast.makeText(TambahTargetActivity.this, "Target Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(TambahTargetActivity.this, LoginActivity.class));
+        }
     }
 }
