@@ -94,12 +94,12 @@ public class TambahTargetActivity extends AppCompatActivity {
     private void tambahTarget() {
         progressDialog.show();
 
-        String target = edtTarget.getText().toString().trim();
-        String nominal = edtNominal.getText().toString().trim();
-        String durasi = edtDurasi.getText().toString().trim();
+        String target   = edtTarget.getText().toString().trim();
+        String nominal  = edtNominal.getText().toString().trim();
+        String durasi   = edtDurasi.getText().toString().trim();
         String deskripsi = edtDeskripsi.getText().toString().trim();
-        String tanggal = edtTanggal.getText().toString().trim();
-        String id = UUID.randomUUID().toString();
+        String tanggal  = edtTanggal.getText().toString().trim();
+        String id       = UUID.randomUUID().toString();
 
         if (target.isEmpty() || nominal.isEmpty() || durasi.isEmpty() || deskripsi.isEmpty() || tanggal.isEmpty() || tanggal.isEmpty()) {
             progressDialog.dismiss();
