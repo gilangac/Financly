@@ -61,6 +61,9 @@ public class TargetActivity extends AppCompatActivity {
     private AlertDialog progressDialog;
     private ProgressBar progressBar;
     private TextView persentase;
+    private AlertDialog.Builder dialog;
+    private LayoutInflater inflater;
+    private View dialogView;
     private int Value = 0;
 
     DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.JAPAN);
@@ -106,36 +109,48 @@ public class TargetActivity extends AppCompatActivity {
                 showDialog();
             }
         });
-
         showData();
     }
 
     private void showDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TargetActivity.this);
-
-        // set title dialog
-        alertDialogBuilder.setTitle("Menghapus Target?");
+        dialog = new AlertDialog.Builder(TargetActivity.this);
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.alert_dialog, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
 
         // set pesan dari dialog
-        alertDialogBuilder
-                .setMessage("Riwayat Tabunganmu juga akan terhapus")
-                .setCancelable(false)
-                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        hapusData();
-                    }
-                })
-                .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+        dialog.setCancelable(false);
 
         // membuat alert dialog dari builder
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog dialoga = dialog.create();
+        dialoga.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
+        TextView txtTitle = (TextView) dialogView.findViewById(R.id.alertTitle);
+        TextView txtIsi = (TextView) dialogView.findViewById(R.id.alertIsi);
+        TextView btnBtl = (TextView) dialogView.findViewById(R.id.alertBatal);
+        TextView btnYa  = (TextView) dialogView.findViewById(R.id.alertYa);
+
+        txtTitle.setText("Menghapus Target?");
+        txtIsi.setText("Riwayat tabunganmu juga akan terhapus");
+
+        btnBtl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialoga.dismiss();
+            }
+        });
+
+        btnYa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hapusData();
+                dialoga.dismiss();
+            }
+        });
         // menampilkan alert dialog
-        alertDialog.show();
+        dialoga.show();
     }
 
     private void hapusData() {

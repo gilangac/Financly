@@ -35,6 +35,7 @@ import id.ac.pnm.financly.LoginActivity;
 import id.ac.pnm.financly.MainActivity;
 import id.ac.pnm.financly.R;
 import id.ac.pnm.financly.SettingActivity;
+import id.ac.pnm.financly.TargetActivity;
 import id.ac.pnm.financly.UpdateProfilActivity;
 import id.ac.pnm.financly.tambahDataActivity;
 
@@ -52,6 +53,11 @@ public class ProfilFragment extends Fragment {
     FirebaseUser firebaseUser;
     FirebaseFirestore firestore;
     FirebaseAuth firebaseAuth;
+
+
+    private AlertDialog.Builder dialog;
+    private LayoutInflater inflater;
+    private View dialogView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -155,35 +161,48 @@ public class ProfilFragment extends Fragment {
 
     private void showDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-
-        // set title dialog
-        alertDialogBuilder.setTitle("Logout");
+        dialog = new AlertDialog.Builder(getActivity());
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.alert_dialog, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
 
         // set pesan dari dialog
-        alertDialogBuilder
-                .setMessage("Yakin keluar ?")
-                .setCancelable(false)
-                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                        firebaseUser = null;
-                        auth.signOut();
-
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("Batal",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+        dialog.setCancelable(false);
 
         // membuat alert dialog dari builder
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog dialoga = dialog.create();
+        dialoga.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
+        TextView txtTitle = (TextView) dialogView.findViewById(R.id.alertTitle);
+        TextView txtIsi = (TextView) dialogView.findViewById(R.id.alertIsi);
+        TextView btnBtl = (TextView) dialogView.findViewById(R.id.alertBatal);
+        TextView btnYa  = (TextView) dialogView.findViewById(R.id.alertYa);
+
+        txtTitle.setText("Logout");
+        txtIsi.setText("Yakin keluar aplikasi?");
+
+        btnBtl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialoga.dismiss();
+            }
+        });
+
+        btnYa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseUser = null;
+                auth.signOut();
+
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                dialoga.dismiss();
+            }
+        });
         // menampilkan alert dialog
-        alertDialog.show();
+        dialoga.show();
     }
+
 }
